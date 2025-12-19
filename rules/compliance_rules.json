@@ -1,0 +1,249 @@
+{
+  "version": "1.0",
+  "description": "Compliance rules for legal contract analysis based on CUAD 41 categories",
+  "rules": [
+    {
+      "id": "RULE_001",
+      "name": "Document Name Verification",
+      "category": "Document Name",
+      "description": "Verify the contract has a proper document name/title",
+      "question": "What is the name of the contract or agreement?",
+      "severity": "low",
+      "required": true
+    },
+    {
+      "id": "RULE_002",
+      "name": "Party Identification",
+      "category": "Parties",
+      "description": "All parties must be clearly identified with full legal names",
+      "question": "Who are the parties to the contract? List all party names with their defined terms.",
+      "severity": "critical",
+      "required": true
+    },
+    {
+      "id": "RULE_003",
+      "name": "Agreement Date Check",
+      "category": "Agreement Date",
+      "description": "Contract must have a clear agreement/signing date",
+      "question": "What is the date of the agreement or contract signing date?",
+      "severity": "high",
+      "required": true
+    },
+    {
+      "id": "RULE_004",
+      "name": "Effective Date Verification",
+      "category": "Effective Date",
+      "description": "Contract should specify when it becomes effective",
+      "question": "What is the effective date when the contract comes into force?",
+      "severity": "high",
+      "required": true
+    },
+    {
+      "id": "RULE_005",
+      "name": "Expiration Date Check",
+      "category": "Expiration Date",
+      "description": "Contract should have clear expiration/end date terms",
+      "question": "What is the expiration date or end date of the contract term?",
+      "severity": "medium",
+      "required": false
+    },
+    {
+      "id": "RULE_006",
+      "name": "Renewal Terms Review",
+      "category": "Renewal Term",
+      "description": "Check if automatic renewal clauses exist and their terms",
+      "question": "Does the contract contain automatic renewal terms? What are the renewal conditions?",
+      "severity": "medium",
+      "required": false
+    },
+    {
+      "id": "RULE_007",
+      "name": "Governing Law Compliance",
+      "category": "Governing Law",
+      "description": "Contract must specify governing law jurisdiction",
+      "question": "What is the governing law or jurisdiction that applies to this contract?",
+      "severity": "high",
+      "required": true
+    },
+    {
+      "id": "RULE_008",
+      "name": "Non-Compete Clause Analysis",
+      "category": "Non-Compete",
+      "description": "Identify any non-compete restrictions and their scope",
+      "question": "Does this contract contain non-compete clauses? What activities are restricted and for what duration?",
+      "severity": "high",
+      "required": false
+    },
+    {
+      "id": "RULE_009",
+      "name": "Exclusivity Provisions",
+      "category": "Exclusivity",
+      "description": "Check for exclusive dealing arrangements",
+      "question": "Does the contract grant exclusive rights to any party? What is the scope of exclusivity?",
+      "severity": "high",
+      "required": false
+    },
+    {
+      "id": "RULE_010",
+      "name": "Anti-Assignment Check",
+      "category": "Anti-Assignment",
+      "description": "Verify assignment restrictions and consent requirements",
+      "question": "Does the contract restrict assignment of rights? Is consent required for assignment?",
+      "severity": "medium",
+      "required": false
+    },
+    {
+      "id": "RULE_011",
+      "name": "Termination for Convenience",
+      "category": "Termination for Convenience",
+      "description": "Check if parties can terminate without cause",
+      "question": "Can either party terminate this agreement for convenience (without cause)? What notice is required?",
+      "severity": "high",
+      "required": false
+    },
+    {
+      "id": "RULE_012",
+      "name": "IP Ownership Rights",
+      "category": "IP Ownership Assignment",
+      "description": "Identify intellectual property ownership and assignment terms",
+      "question": "Who owns the intellectual property created under this agreement? Are there any IP assignment provisions?",
+      "severity": "critical",
+      "required": false
+    },
+    {
+      "id": "RULE_013",
+      "name": "License Grant Analysis",
+      "category": "License Grant",
+      "description": "Review license grants and their scope",
+      "question": "What licenses are granted in this contract? What is the scope, territory, and duration of each license?",
+      "severity": "high",
+      "required": false
+    },
+    {
+      "id": "RULE_014",
+      "name": "Confidentiality Obligations",
+      "category": "Non-Disclosure Agreement",
+      "description": "Verify confidentiality and NDA provisions",
+      "question": "Does the contract contain confidentiality or non-disclosure provisions? What information is protected?",
+      "severity": "high",
+      "required": false
+    },
+    {
+      "id": "RULE_015",
+      "name": "Liability Cap Review",
+      "category": "Cap on Liability",
+      "description": "Check for liability limitations and caps",
+      "question": "Is there a cap on liability in this contract? What is the maximum liability amount or formula?",
+      "severity": "critical",
+      "required": false
+    },
+    {
+      "id": "RULE_016",
+      "name": "Uncapped Liability Risk",
+      "category": "Uncapped Liability",
+      "description": "Identify any uncapped liability exposure",
+      "question": "Are there any obligations with uncapped liability? What types of breaches have unlimited liability?",
+      "severity": "critical",
+      "required": false
+    },
+    {
+      "id": "RULE_017",
+      "name": "Indemnification Terms",
+      "category": "Indemnification",
+      "description": "Review indemnification obligations",
+      "question": "What indemnification obligations exist? Who indemnifies whom and for what types of claims?",
+      "severity": "high",
+      "required": false
+    },
+    {
+      "id": "RULE_018",
+      "name": "Insurance Requirements",
+      "category": "Insurance",
+      "description": "Check insurance maintenance requirements",
+      "question": "Are there insurance requirements in this contract? What types and amounts of coverage are required?",
+      "severity": "medium",
+      "required": false
+    },
+    {
+      "id": "RULE_019",
+      "name": "Audit Rights Review",
+      "category": "Audit Rights",
+      "description": "Verify audit and inspection rights",
+      "question": "Does any party have audit rights? What records can be audited and with what notice?",
+      "severity": "medium",
+      "required": false
+    },
+    {
+      "id": "RULE_020",
+      "name": "Change of Control Provisions",
+      "category": "Change of Control",
+      "description": "Check change of control triggers and consequences",
+      "question": "What happens upon a change of control of either party? Are there termination or consent rights?",
+      "severity": "high",
+      "required": false
+    },
+    {
+      "id": "RULE_021",
+      "name": "Most Favored Nation Check",
+      "category": "Most Favored Nation",
+      "description": "Identify MFN pricing or terms clauses",
+      "question": "Does the contract contain most favored nation or most favored customer provisions?",
+      "severity": "medium",
+      "required": false
+    },
+    {
+      "id": "RULE_022",
+      "name": "ROFO/ROFR Analysis",
+      "category": "Rofr/Rofo/Rofn",
+      "description": "Check for right of first refusal/offer/negotiation",
+      "question": "Does the contract grant any right of first refusal, right of first offer, or right of first negotiation?",
+      "severity": "medium",
+      "required": false
+    },
+    {
+      "id": "RULE_023",
+      "name": "Minimum Commitment Check",
+      "category": "Minimum Commitment",
+      "description": "Review minimum purchase or performance commitments",
+      "question": "Are there minimum purchase, volume, or performance commitments? What are the consequences of not meeting minimums?",
+      "severity": "high",
+      "required": false
+    },
+    {
+      "id": "RULE_024",
+      "name": "Volume Restriction Analysis",
+      "category": "Volume Restriction",
+      "description": "Check for maximum volume or capacity limitations",
+      "question": "Are there volume restrictions or maximum quantity limitations in this contract?",
+      "severity": "medium",
+      "required": false
+    },
+    {
+      "id": "RULE_025",
+      "name": "Price Restriction Review",
+      "category": "Price Restriction",
+      "description": "Identify price-related restrictions or controls",
+      "question": "Are there price restrictions, resale price maintenance, or pricing controls in this contract?",
+      "severity": "high",
+      "required": false
+    }
+  ],
+  "severity_levels": {
+    "critical": {
+      "description": "Must be compliant - contract may be unenforceable or create significant risk",
+      "weight": 3
+    },
+    "high": {
+      "description": "Should be compliant - may create business or legal risk",
+      "weight": 2
+    },
+    "medium": {
+      "description": "Recommended compliance - best practice",
+      "weight": 1
+    },
+    "low": {
+      "description": "Optional - informational",
+      "weight": 0.5
+    }
+  }
+}
