@@ -1,0 +1,670 @@
+/* TARGETED VISIBILITY FIX FOR TOP 5 CONTRACTS COMPARISON TABLE */
+.top-contracts-table,
+.top-contracts-table *,
+.top-contracts-table th,
+.top-contracts-table td {
+    color: #152A45 !important;
+    background: white !important;
+    -webkit-text-fill-color: #152A45 !important;
+    font-weight: 600 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+/* FORCE VISIBILITY FOR COMPARE TOP 5 CONTRACTS RESULT CARD */
+.result-card,
+.result-card *,
+.stDataFrame,
+.stDataFrame *,
+[data-testid="stDataFrame"],
+[data-testid="stDataFrame"] * {
+    color: #152A45 !important;
+    background: white !important;
+    -webkit-text-fill-color: #152A45 !important;
+    font-weight: 600 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+/* UNIVERSAL SELECTION OVERRIDE FOR TABLES AND CARDS */
+table ::selection,
+table ::-moz-selection,
+.stDataFrame ::selection,
+.stDataFrame ::-moz-selection,
+[data-testid="stDataFrame"] ::selection,
+[data-testid="stDataFrame"] ::-moz-selection,
+.stDataFrame td::selection,
+.stDataFrame th::selection,
+[data-testid="stDataFrame"] td::selection,
+[data-testid="stDataFrame"] th::selection,
+.stDataFrame td::-moz-selection,
+.stDataFrame th::-moz-selection,
+[data-testid="stDataFrame"] td::-moz-selection,
+[data-testid="stDataFrame"] th::-moz-selection {
+    background: white !important;
+    color: #152A45 !important;
+    -webkit-text-fill-color: #152A45 !important;
+}
+/* AGGRESSIVE OVERRIDE: Prevent dark background/white text on selection/highlight in DataFrame cells */
+.stDataFrame td::selection,
+.stDataFrame th::selection,
+[data-testid="stDataFrame"] td::selection,
+[data-testid="stDataFrame"] th::selection,
+.stDataFrame td::-moz-selection,
+.stDataFrame th::-moz-selection,
+[data-testid="stDataFrame"] td::-moz-selection,
+[data-testid="stDataFrame"] th::-moz-selection {
+    background: white !important;
+    color: #152A45 !important;
+    -webkit-text-fill-color: #152A45 !important;
+}
+/* Policy Compliance Checker - Professional Legal Theme */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+/* Root Variables - Legal/Compliance Color Palette */
+:root {
+    --primary-navy: #1E3A5F;
+    --primary-navy-dark: #152A45;
+    --primary-gold: #D4AF37;
+    --primary-gold-light: #F4D03F;
+    --accent-emerald: #10B981;
+    --accent-amber: #F59E0B;
+    --danger-red: #EF4444;
+    --success-green: #22C55E;
+    --background-light: #F8FAFC;
+    --background-cream: #FFFBEB;
+    --card-bg: #FFFFFF;
+    --text-primary: #1E293B;
+    --text-secondary: #64748B;
+    --border-color: #E2E8F0;
+    --shadow-sm: 0 2px 4px rgba(30,58,95,0.08);
+    --shadow-md: 0 4px 12px rgba(30,58,95,0.12);
+    --shadow-lg: 0 8px 24px rgba(30,58,95,0.15);
+    --gradient-legal: linear-gradient(135deg, #1E3A5F 0%, #D4AF37 100%);
+    --gradient-header: linear-gradient(135deg, #1E3A5F 0%, #2D4A6F 100%);
+    --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+}
+
+/* Global Styles */
+.stApp {
+    background: #F8FAFC !important;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden !important;
+}
+
+/* Hide Streamlit Branding */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+
+/* Prevent horizontal scroll */
+html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+}
+
+/* Main Container */
+.main .block-container {
+    padding: 0 !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
+
+/* Custom Header Styling */
+.stMarkdown h1:not([style]) {
+    font-family: 'Playfair Display', serif !important;
+    font-weight: 700 !important;
+    font-size: 2.5rem !important;
+    background: var(--gradient-legal);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    padding: 1rem 0;
+    margin-bottom: 0.5rem !important;
+}
+
+/* Markdown Text */
+.stMarkdown {
+    background: transparent;
+}
+
+.stMarkdown div, .stMarkdown p, .stMarkdown span, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
+    color: inherit;
+    -webkit-text-fill-color: inherit;
+}
+
+/* Success Message Styling */
+.stSuccess {
+    background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%) !important;
+    border: none !important;
+    border-left: 4px solid var(--success-green) !important;
+    border-radius: 8px !important;
+    padding: 1rem !important;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Spinner Styling */
+.stSpinner > div {
+    border-color: var(--primary-navy) transparent transparent transparent !important;
+}
+
+/* Text Input Styling */
+.stTextInput > div > div > input {
+    border: 2px solid var(--primary-navy) !important;
+    border-radius: 12px !important;
+    padding: 1rem 1.5rem !important;
+    font-size: 1rem !important;
+    color: #1E293B !important;
+    -webkit-text-fill-color: #1E293B !important;
+    background: white !important;
+    box-shadow: 0 4px 15px rgba(30,58,95,0.1) !important;
+}
+
+.stTextInput > div > div > input:focus {
+    border-color: var(--primary-gold) !important;
+    box-shadow: 0 0 0 4px rgba(212,175,55,0.15) !important;
+    color: #1E293B !important;
+    -webkit-text-fill-color: #1E293B !important;
+}
+
+.stTextInput > div > div > input::placeholder {
+    color: #64748B !important;
+    -webkit-text-fill-color: #64748B !important;
+    opacity: 1 !important;
+}
+
+/* Text Area Styling */
+.stTextArea > div > div > textarea {
+    border: 2px solid var(--primary-navy) !important;
+    border-radius: 12px !important;
+    padding: 1rem !important;
+    font-size: 0.95rem !important;
+    color: #1E293B !important;
+    -webkit-text-fill-color: #1E293B !important;
+    background: white !important;
+    box-shadow: 0 4px 15px rgba(30,58,95,0.1) !important;
+    min-height: 120px !important;
+}
+
+.stTextArea > div > div > textarea:focus {
+    border-color: var(--primary-gold) !important;
+    box-shadow: 0 0 0 4px rgba(212,175,55,0.15) !important;
+    color: #1E293B !important;
+    -webkit-text-fill-color: #1E293B !important;
+}
+
+.stTextArea > div > div > textarea::placeholder {
+    color: #64748B !important;
+    -webkit-text-fill-color: #64748B !important;
+    opacity: 1 !important;
+}
+
+/* Selectbox Styling */
+.stSelectbox > div > div {
+    border: 2px solid var(--primary-navy) !important;
+    border-radius: 12px !important;
+    background: white !important;
+}
+
+.stSelectbox > div > div:focus-within {
+    border-color: var(--primary-gold) !important;
+    box-shadow: 0 0 0 4px rgba(212,175,55,0.15) !important;
+}
+
+/* Selectbox selected value text color */
+.stSelectbox [data-baseweb="select"] > div {
+    color: #1E293B !important;
+    -webkit-text-fill-color: #1E293B !important;
+}
+
+/* Multiselect Styling */
+.stMultiSelect > div > div {
+    border: 2px solid var(--primary-navy) !important;
+    border-radius: 12px !important;
+    background: white !important;
+}
+
+.stMultiSelect > div > div:focus-within {
+    border-color: var(--primary-gold) !important;
+}
+
+/* Primary Button Styling */
+.stButton > button[kind="primary"] {
+    background: linear-gradient(135deg, #1E3A5F, #152A45) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 0.75rem 2rem !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    box-shadow: 0 4px 15px rgba(30,58,95,0.3) !important;
+    transition: all 0.3s ease !important;
+}
+
+.stButton > button[kind="primary"]:hover {
+    box-shadow: 0 6px 20px rgba(30,58,95,0.4) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Secondary Button */
+.stButton > button {
+    background: linear-gradient(135deg, #1E3A5F, #2D4A6F) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 600 !important;
+    font-family: 'Inter', sans-serif !important;
+    transition: all 0.3s ease !important;
+    box-shadow: var(--shadow-md);
+}
+
+.stButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(135deg, #152A45, #1E3A5F) !important;
+}
+
+/* Download Button */
+.stDownloadButton > button {
+    background: linear-gradient(135deg, #D4AF37, #F4D03F) !important;
+    color: #1E3A5F !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+}
+
+.stDownloadButton > button:hover {
+    background: linear-gradient(135deg, #C49E2C, #D4AF37) !important;
+}
+
+/* Expander Styling */
+.streamlit-expanderHeader {
+    background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%) !important;
+    border-radius: 12px !important;
+    border: 1px solid #BAE6FD !important;
+    font-weight: 600 !important;
+    font-family: 'Inter', sans-serif !important;
+    color: #1E3A5F !important;
+    -webkit-text-fill-color: #1E3A5F !important;
+    padding: 0.75rem 1rem !important;
+    transition: all 0.3s ease;
+}
+
+.streamlit-expanderHeader p,
+.streamlit-expanderHeader span,
+.streamlit-expanderHeader div,
+[data-testid="stExpander"] summary p,
+[data-testid="stExpander"] summary span {
+    color: #1E3A5F !important;
+    -webkit-text-fill-color: #1E3A5F !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.streamlit-expanderHeader:hover {
+    background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%) !important;
+    box-shadow: var(--shadow-sm);
+}
+
+.streamlit-expanderContent {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    border-top: none !important;
+    border-radius: 0 0 12px 12px !important;
+    padding: 1rem !important;
+}
+
+.streamlit-expanderContent p,
+.streamlit-expanderContent span,
+.streamlit-expanderContent div {
+    color: #1E293B !important;
+    -webkit-text-fill-color: #1E293B !important;
+}
+
+/* Tabs Styling */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+    background: #F1F5F9;
+    padding: 0.5rem;
+    border-radius: 12px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    background: transparent !important;
+    border-radius: 8px !important;
+    color: #64748B !important;
+    font-weight: 500 !important;
+    padding: 0.75rem 1.5rem !important;
+}
+
+.stTabs [aria-selected="true"] {
+    background: linear-gradient(135deg, #1E3A5F, #2D4A6F) !important;
+    color: white !important;
+}
+
+/* DataFrame/Table Styling */
+.stDataFrame {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: var(--shadow-md) !important;
+}
+
+.stDataFrame [data-testid="stDataFrameResizable"] {
+    border: 1px solid var(--border-color) !important;
+    border-radius: 12px !important;
+}
+
+/* DataFrame Light Theme - Force light mode */
+.stDataFrame, 
+.stDataFrame iframe,
+[data-testid="stDataFrame"],
+[data-testid="stDataFrame"] > div,
+[data-testid="stDataFrameResizable"],
+[data-testid="stDataFrameResizable"] > div {
+    background: white !important;
+    background-color: white !important;
+}
+
+/* Glide Data Grid (Streamlit's table renderer) */
+.dvn-scroller,
+.dvn-underlay,
+[data-testid="glideDataEditor"],
+[data-testid="stDataFrameResizable"] canvas {
+    background: white !important;
+    background-color: white !important;
+}
+
+/* Force all table elements to light theme */
+[data-theme="dark"] .stDataFrame,
+[data-theme="dark"] [data-testid="stDataFrame"],
+.stDataFrame *,
+[data-testid="stDataFrame"] * {
+    --gdg-bg-cell: white !important;
+    --gdg-bg-header: #F1F5F9 !important;
+    --gdg-bg-header-has-focus: #E0F2FE !important;
+    --gdg-text-dark: #1E293B !important;
+    --gdg-text-header: #1E3A5F !important;
+    --gdg-border-color: #E2E8F0 !important;
+    --gdg-bg-bubble: white !important;
+    --gdg-bg-bubble-selected: #E0F2FE !important;
+    color: #1E293B !important;
+}
+
+.stDataFrame th,
+.stDataFrame td,
+[data-testid="stDataFrame"] th,
+[data-testid="stDataFrame"] td,
+.stDataFrame *,
+[data-testid="stDataFrame"] * {
+    color: #152A45 !important;
+    background: white !important;
+    -webkit-text-fill-color: #152A45 !important;
+    font-weight: 600 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Force selected/active DataFrame cell background to white and text to dark navy */
+.stDataFrame td:active,
+.stDataFrame td:focus,
+.stDataFrame td[data-cell-selected="true"],
+[data-testid="stDataFrame"] td:active,
+[data-testid="stDataFrame"] td:focus,
+[data-testid="stDataFrame"] td[data-cell-selected="true"] {
+    background: white !important;
+    color: #152A45 !important;
+    -webkit-text-fill-color: #152A45 !important;
+}
+
+.stDataFrame thead tr th {
+    background: #F1F5F9 !important;
+    color: #1E3A5F !important;
+    -webkit-text-fill-color: #1E3A5F !important;
+    font-weight: 600 !important;
+}
+
+.stDataFrame tbody tr:nth-child(even) {
+    background: #F8FAFC !important;
+}
+
+.stDataFrame tbody tr:hover {
+    background: #E0F2FE !important;
+}
+
+/* Metric Styling */
+[data-testid="stMetric"] {
+    background: white !important;
+    padding: 1rem !important;
+    border-radius: 12px !important;
+    box-shadow: var(--shadow-sm) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+[data-testid="stMetricLabel"] {
+    color: #64748B !important;
+}
+
+[data-testid="stMetricValue"] {
+    color: #1E3A5F !important;
+    font-weight: 700 !important;
+}
+
+/* Progress Bar */
+.stProgress > div > div > div > div {
+    background: linear-gradient(135deg, #1E3A5F, #D4AF37) !important;
+}
+
+/* Info boxes */
+.stInfo {
+    background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%) !important;
+    border: none !important;
+    border-left: 4px solid var(--primary-navy) !important;
+    border-radius: 8px !important;
+}
+
+/* Warning boxes */
+.stWarning {
+    background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%) !important;
+    border: none !important;
+    border-left: 4px solid var(--accent-amber) !important;
+    border-radius: 8px !important;
+}
+
+/* Error boxes */
+.stError {
+    background: linear-gradient(135deg, #FEF2F2 0%, #FECACA 100%) !important;
+    border: none !important;
+    border-left: 4px solid var(--danger-red) !important;
+    border-radius: 8px !important;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F1F5F9;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--primary-navy) 0%, var(--primary-gold) 100%);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-navy-dark);
+}
+
+/* Animation */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.stSpinner {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Sidebar Styling */
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #1E3A5F 0%, #152A45 100%) !important;
+}
+
+[data-testid="stSidebar"] .stMarkdown {
+    color: white !important;
+}
+
+[data-testid="stSidebar"] label {
+    color: white !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main .block-container {
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-size: 1.75rem !important;
+    }
+}
+
+/* Widget Labels */
+.stTextInput label,
+.stSelectbox label,
+.stTextArea label,
+.stMultiSelect label {
+    color: #1E293B !important;
+    font-weight: 500 !important;
+}
+
+[data-testid="stWidgetLabel"] {
+    color: #1E293B !important;
+}
+
+/* Alert/Status Messages */
+.element-container .stAlert {
+    border-radius: 12px !important;
+}
+
+/* Radio Buttons */
+.stRadio > div {
+    gap: 1rem !important;
+}
+
+.stRadio label {
+    color: #1E293B !important;
+}
+
+/* Checkbox */
+.stCheckbox label {
+    color: #1E293B !important;
+}
+
+/* Columns gap fix */
+[data-testid="column"] {
+    padding: 0.5rem !important;
+}
+
+/* JSON display */
+.stJson {
+    background: #1E293B !important;
+    border-radius: 12px !important;
+    padding: 1rem !important;
+}
+
+/* Code blocks */
+code {
+    background: #F1F5F9 !important;
+    color: #1E3A5F !important;
+    padding: 0.2rem 0.5rem !important;
+    border-radius: 4px !important;
+}
+
+/* Divider */
+hr {
+    border: none;
+    height: 2px;
+    background: var(--gradient-legal);
+    border-radius: 2px;
+    margin: 1.5rem 0;
+}
+
+/* ============================================ */
+/* TARGETED TEXT VISIBILITY FIXES */
+/* ============================================ */
+
+/* Input text visibility */
+input, textarea {
+    color: #1E293B !important;
+    -webkit-text-fill-color: #1E293B !important;
+}
+
+/* Selectbox text */
+.stSelectbox [data-baseweb="select"] span {
+    color: #1E293B !important;
+    -webkit-text-fill-color: #1E293B !important;
+}
+
+/* Dropdown menu items */
+[data-baseweb="menu"] li {
+    color: #1E293B !important;
+}
+
+/* DataFrame text */
+.stDataFrame td, .stDataFrame th {
+    color: #1E293B !important;
+}
+
+/* Labels for form elements only */
+.stTextInput label, .stTextArea label, .stSelectbox label, .stMultiSelect label {
+    color: #1E293B !important;
+    -webkit-text-fill-color: #1E293B !important;
+}
+
+/* Placeholder text */
+input::placeholder, textarea::placeholder {
+    color: #64748B !important;
+    -webkit-text-fill-color: #64748B !important;
+    opacity: 1 !important;
+}
+
+/* PRESERVE BUTTON WHITE TEXT */
+.stButton > button, .stButton > button span, .stButton > button p {
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+}
+
+.stDownloadButton > button, .stDownloadButton > button span {
+    color: #1E3A5F !important;
+    -webkit-text-fill-color: #1E3A5F !important;
+}
+
+/* Expander icon visibility */
+.streamlit-expanderHeader svg {
+    fill: #1E3A5F !important;
+    color: #1E3A5F !important;
+}
+
+/* Placeholder text */
+::placeholder {
+    color: #64748B !important;
+    -webkit-text-fill-color: #64748B !important;
+    opacity: 1 !important;
+}
