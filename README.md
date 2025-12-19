@@ -17,158 +17,319 @@
 
 ## 📖 Overview
 
-**Policy Compliance Checker RAG System** is an advanced legal AI assistant for automated contract review and compliance analysis. It leverages the CUAD dataset, local HuggingFace embeddings, FAISS vector search, and Cohere LLMs to provide instant and custom compliance checks on legal documents.
+**Policy Compliance Checker RAG System** is an advanced legal AI assistant for automated contract review and compliance analysis. It is designed to help lawyers, compliance teams, and analysts rapidly locate relevant clauses, determine compliance with specific rules, and explain findings using a combination of:
 
-### 🎯 Key Highlights
+- Pre-labeled CUAD dataset (instant checks)
+- Local HuggingFace embeddings & FAISS (fast, private retrieval)
+- Cohere models for reranking and answer generation
+- A ReAct-style multi-step agent for complex reasoning
 
-- **510+ Contracts, 41 Clause Categories** (CUAD dataset)
-- **Instant Compliance Checks** using pre-labeled data
-- **RAG Pipeline** for custom queries and clause search
-- **LLM Reranking** for high-precision retrieval
-- **Modern Streamlit UI** for interactive analysis
-- **Source Attribution** and detailed compliance reports
+This README documents how to set up, run, and extend the Task 2 (legal compliance) project.
 
 ---
 
-## ✨ Features
+## 🚀 Quick Start (TL;DR)
 
-- **Dual Mode:**
-  - **INSTANT:** Uses pre-labeled compliance data for fast results
-  - **RAG:** Retrieves relevant clauses using local embeddings + LLM reranking
-- **Parent-Child Document Indexing** for optimal retrieval
-- **Custom Rule Checking** and full contract compliance analysis
-- **Clause Comparison** across contracts
-- **Summarization and Explanation** of findings
-- **Interactive, Responsive UI** with custom CSS
-
----
-
-## 🏗️ Architecture
-
-```
-┌──────────────────────────────────────────────────────────────┐
-│                POLICY COMPLIANCE CHECKER RAG SYSTEM         │
-├──────────────┬─────────────────────────────┬────────────────┤
-│  User Query  │  Streamlit Web Interface    │  API/CLI       │
-├──────────────┴─────────────┬───────────────┴────────────────┤
-│   ComplianceAgent (ReAct)  │ ComplianceChecker (RAG/Instant)│
-├────────────────────────────┴────────────────────────────────┤
-│  FAISS Vectorstore  │  Cohere LLM/Rerank  │  Pre-labeled   │
-│  (Local Embeddings) │  (Custom QA, Rules) │  CUAD Data     │
-├─────────────────────────────────────────────────────────────┤
-│  Contracts (TXT/PDF) │  master_clauses.csv │  CUAD_v1.json │
-└─────────────────────────────────────────────────────────────┘
-```
-
----
-
-## 📚 Dataset: CUAD v1
-
-- **510 contracts** (TXT, PDF)
-- **41 clause categories** (e.g., Governing Law, Assignment, Confidentiality)
-- **master_clauses.csv:** Pre-labeled Yes/No + extracted text for each contract/category
-- **CUAD_v1.json:** SQuAD-style Q&A pairs for each contract
-- **Full contract text and PDF files** for raw retrieval
-
----
-
-## ⚙️ Installation
-
-1. **Clone the repository:**
+1. Clone and move to task2:
    ```bash
    git clone https://github.com/NadeemAhmad3/Policy_Compliance_Checker_RAG_System.git
    cd Policy_Compliance_Checker_RAG_System/task2
    ```
-2. **Create and activate a virtual environment:**
+2. Create and activate a venv:
    ```bash
    python -m venv .venv
-   .venv\Scripts\activate  # On Windows
-   source .venv/bin/activate  # On Linux/Mac
+   .venv\Scripts\activate  # Windows
    ```
-3. **Install dependencies:**
+3. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-4. **Set up environment variables:**
-   - Create a `.env` file in the root directory with your Cohere API key:
-     ```env
-     COHERE_API_KEY=your_cohere_api_key_here
-     ```
-5. **Prepare the dataset:**
-   - Ensure the `dataset/` folder contains all CUAD files (see structure below).
-
----
-
-## 🚀 Usage
-
-### 1. **Ingest Contracts and Build Vectorstore**
+4. Add `COHERE_API_KEY` to `.env`
+5. Build vectorstore (optional, RAG mode):
    ```bash
    python src/ingest.py --force
    ```
-   - This will process contracts, build local embeddings, and create a FAISS index.
-
-### 2. **Run the Streamlit App**
+6. Run the app:
    ```bash
    streamlit run app.py --server.port 8502
    ```
-   - Open your browser at [http://localhost:8502](http://localhost:8502)
-
-### 3. **Features in the UI**
-   - **Home:** Project overview
-   - **Features:** System highlights
-   - **Compliance:** Upload/select a contract, run compliance check (all rules or specific)
-   - **AI Agent:** Ask complex compliance questions (multi-step reasoning)
-   - **About:** Dataset, rules, and credits
 
 ---
 
-## 🗂️ Project Structure
+## ✨ Features (detailed)
+
+- INSTANT mode: Use `master_clauses.csv` for instant, deterministic compliance checks (no LLM calls required)
+- RAG mode: Use local embeddings + FAISS to retrieve relevant contract chunks, with Cohere Rerank as a second-stage filter
+- Multi-step ComplianceAgent: Decomposes complex queries into plan steps (search, check rule, compare, summarize)
+- Parent-Child indexing: Maintains large parent context with small child chunks for precise retrieval
+- Source citation & relevance scoring
+- Streamlit UI for interactive exploration and reporting
+
+---
+
+## 🏗️ Architecture & Data Flow
+
+High-level system diagram:
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                          USER INTERFACE                             │
+│  Streamlit App (app.py) / CLI (agent.py) / Scripts (ingest.py)      │
+└─────────────────────────────────────────────────────────────────────┘
+                │                         │                      
+                ▼                         ▼                      
+┌──────────────────────────┐   ┌──────────────────────────┐        
+│ ComplianceAgent (ReAct)  │   │ ComplianceChecker (RAG)  │        
+│  - Plans actions         │   │  - Retriever (FAISS)     │        
+│  - Orchestrates checks   │   │  - Cohere rerank/LLM     │        
+└─────────┬────────────────┘   └──────────┬───────────────┘        
+          │                                 │                      
+          ▼                                 ▼                      
+   ┌──────────────┐                ┌─────────────────────────┐     
+   │ master_clauses.csv (INSTANT) │  │ vectorstore (FAISS)    │     
+   │ CUAD_v1.json                 │  │ - Child embeddings     │     
+   └──────────────────────────────┘  └─────────────────────────┘     
+```
+
+Parent-Child retrieval (short recap):
+- Parents: large chunks (e.g., 2000 chars) to preserve context
+- Children: small chunks (e.g., 400 chars) embedded into FAISS for precise matching
+- Query → search children → find parent(s) → rerank with Cohere → assemble context → LLM answer
+
+---
+
+## 🔧 Tech Stack
+
+- Python 3.10+
+- LangChain (core, community)
+- Cohere (LLM + Rerank)
+- HuggingFace local embeddings (sentence-transformers)
+- FAISS (vector store)
+- Streamlit UI
+- Pandas for CSV processing
+
+---
+
+## 📁 Project Structure (task2)
 
 ```
 task2/
-├── app.py                # Streamlit web app
-├── requirements.txt      # Python dependencies
-├── style.css             # Custom CSS for UI
-├── dataset/              # CUAD data (CSV, JSON, TXT, PDF)
+├── README.md
+├── app.py                    # Streamlit web app (UI)
+├── requirements.txt
+├── style.css
+├── dataset/                  # CUAD dataset files
 │   ├── master_clauses.csv
 │   ├── CUAD_v1.json
 │   ├── full_contract_txt/
 │   └── full_contract_pdf/
-├── rules/                # compliance_rules.json
+├── rules/                    # compliance_rules.json
 ├── src/
-│   ├── agent.py          # ComplianceAgent (multi-step LLM)
-│   ├── compliance_checker.py # Core compliance logic (RAG/Instant)
-│   ├── config.py         # Configuration and paths
-│   ├── ingest.py         # Data ingestion and vectorstore builder
+│   ├── agent.py              # ComplianceAgent (ReAct planning + execution)
+│   ├── compliance_checker.py # RAG + INSTANT compliance logic
+│   ├── config.py             # Constants & paths
+│   ├── ingest.py             # Ingestion, splitting, embeddings, FAISS builder
 │   └── __init__.py
-├── vectorstore/          # FAISS index files
-└── ...
+├── vectorstore/              # Generated FAISS index and docstore (created by ingest)
+└── analyze_dataset.py        # Analysis utilities (task2)
 ```
 
 ---
 
-## ⚡ Configuration
+## 🔬 Detailed Components
 
-- **config.py:** Set model names, paths, and parameters
-- **.env:** Store your Cohere API key securely
-- **requirements.txt:** All dependencies listed for reproducibility
+### src/config.py
+Key variables you'll likely tweak:
+
+```python
+EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+RERANK_MODEL = "rerank-english-v3.0"
+CHAT_MODEL = "command-r-plus-08-2024"
+VECTORSTORE_DIR = BASE_DIR / "vectorstore"
+RETRIEVAL_K = 8
+RERANK_TOP_N = 3
+COMPLIANCE_THRESHOLD = 0.7
+PARENT_CHUNK_SIZE = 2000
+CHILD_CHUNK_SIZE = 400
+BATCH_SIZE = 32
+```
+
+Changes to these affect speed vs. accuracy tradeoffs. Using a larger `RETRIEVAL_K` and `RERANK_TOP_N` improves recall at a cost of runtime.
+
+### src/ingest.py (what it does)
+- Reads `master_clauses.csv` and raw `full_contract_txt/`
+- Splits documents into parents and children using `RecursiveCharacterTextSplitter`
+- Embeds children with HuggingFace embeddings (local, CPU/GPU aware)
+- Builds FAISS index and saves to `vectorstore/faiss_index`
+
+Example usage:
+```bash
+python src/ingest.py --force
+```
+Sample output lines you should see:
+```
+Loading local embedding model: sentence-transformers/all-MiniLM-L6-v2
+Building embeddings: batch 1/16
+Saving FAISS index to vectorstore/faiss_index/
+✓ Vectorstore saved (num_vectors=12345)
+```
+
+### src/compliance_checker.py (core logic)
+- Uses `master_clauses.csv` for INSTANT checks (deterministic answers)
+- Uses vectorstore + Cohere Rerank for RAG mode
+- Provides methods to:
+  - list rules
+  - check a specific rule for a contract
+  - run full compliance across all rules for a contract
+  - search contracts by keyword/term
+
+Example (pseudo-code):
+```python
+from src.compliance_checker import ComplianceChecker
+checker = ComplianceChecker(use_vectorstore=True)
+checker.check_rule(filename='SOME_CONTRACT.txt', rule_id='governing_law')
+```
+Return format (dict):
+```json
+{
+  "filename": "SOME_CONTRACT.txt",
+  "rule_id": "governing_law",
+  "compliant": true,
+  "evidence": "This Agreement shall be governed by the laws of California.",
+  "confidence": 0.92
+}
+```
+
+### src/agent.py (ComplianceAgent)
+- A ReAct-style multi-step planner/executor that uses Cohere Chat to
+  decompose complex queries into specific actions (search, check rule, summarize)
+- Useful for multi-part user queries ("Compare confidential clauses across contracts and summarize risks")
+
+Run locally for debugging:
+```bash
+python src/agent.py
+```
 
 ---
 
-## 📝 Credits & References
+## 🧑‍💻 Installation & Setup (detailed)
 
-- **CUAD Dataset:** [The Atticus Project](https://www.atticusprojectai.org/cuad)
-- **LangChain, Cohere, HuggingFace, FAISS**
-- **Original Author:** [Nadeem Ahmad](https://github.com/NadeemAhmad3)
+### 1) Clone repo & create venv
+```bash
+git clone https://github.com/NadeemAhmad3/Policy_Compliance_Checker_RAG_System.git
+cd Policy_Compliance_Checker_RAG_System/task2
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+### 2) Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3) Add `.env` with your Cohere key
+```.env
+COHERE_API_KEY=your_cohere_api_key_here
+```
+
+### 4) (Optional but recommended) Build vectorstore for RAG mode
+```bash
+python src/ingest.py --force
+```
+- If you skip this, the system will operate in **INSTANT** mode using `master_clauses.csv`.
+
+### 5) Run the Streamlit UI
+```bash
+streamlit run app.py --server.port 8502
+```
 
 ---
 
-## 📢 License
+## 💬 Example Workflows & Queries
 
-This project is for research and educational purposes. Please check the CUAD dataset license for data usage terms.
+### Instant compliance check (no LLM)
+- Select a contract from the dropdown → Click **Run Full Compliance**
+- Output: Table of 41 rules with compliant flag, evidence snippets, and confidence
+
+### RAG-based query
+- Ask: "Does contract X restrict assignment without consent?"
+- Process: Agent searches relevant children, reranks, and returns evidence with a final answer
+- Output: Answer + top 3 source snippets with relevance scores
+
+### Agent multi-step task
+- Query: "Compare confidentiality clauses across these 3 contracts and summarize risk areas"
+- Agent plan: search_contracts → extract clauses → compare_contracts → summarize_findings
+- Output: Structured comparison + short summary and recommended actions
 
 ---
 
-## 💡 Contact
+## ✅ Testing & Validation
 
-For questions or contributions, open an issue or contact via GitHub.
+- Quick import test:
+```bash
+python -c "from src.compliance_checker import ComplianceChecker; print('Import OK')"
+```
+- Python syntax check:
+```bash
+python -m py_compile app.py
+```
+- Unit tests: (Not included by default) — you can add tests under `tests/` and run with `pytest`.
+
+---
+
+## 🛠 Troubleshooting
+
+- Vectorstore not found / corrupted:
+  - Re-run `python src/ingest.py --force` to rebuild
+  - Ensure `vectorstore/faiss_index` is writable
+- Cohere API issues:
+  - Confirm `COHERE_API_KEY` in `.env`
+  - Watch for rate limits or temporary outages
+- Memory/Performance:
+  - Use smaller embedding model or enable GPU if available
+  - Reduce `RETRIEVAL_K` / `RERANK_TOP_N` to speed up queries
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome. Suggested workflow:
+
+1. Fork the repo
+2. Create a branch: `git checkout -b feature/my-feature`
+3. Add tests and update README when adding features
+4. Open a pull request with a clear description
+
+---
+
+## 📝 License & Data
+
+- Project code: **MIT License** (check LICENSE in repo)
+- Data: **CUAD dataset terms** apply — verify dataset license before commercial use
+
+---
+
+## 👤 Author & Contact
+
+**Nadeem Ahmad** — Author and maintainer
+- GitHub: https://github.com/NadeemAhmad3
+- Email: nadeemahmad2703@gmail.com
+
+---
+
+## 🙏 Acknowledgments
+
+- The Atticus Project — CUAD dataset
+- Cohere — LLM & reranking
+- LangChain — RAG primitives
+- HuggingFace — Local embeddings
+- FAISS — Vector indexing
+
+---
+
+If you'd like, I can also:
+- Add example screenshots of the Streamlit UI
+- Generate a minimal `docker-compose` for local deployment
+- Add a `Makefile` with common commands
+
+Please tell me which additions you want and I'll update the file accordingly.
